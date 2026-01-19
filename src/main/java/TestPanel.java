@@ -18,7 +18,7 @@ public class TestPanel extends JPanel {
     }
     public void startSorting() {
         new Thread(() -> {
-            SortingAlgorithms.bubbleSort(numberList, this);
+            SortingAlgorithms.selectionSort(numberList, this);
         }).start();
     }
 

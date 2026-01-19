@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.awt.*;
+import java.util.Collections;
 
 
 public class SortingAlgorithms {
@@ -20,18 +20,44 @@ public class SortingAlgorithms {
                     data.set(j + 1, valueA);
                 }
 
-
             }
-            panel.repaint();
-
-
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            PaintingUtility.repaintPanel(panel);
 
         }
         return data;
     }
+
+    public static ArrayList<Integer> selectionSort(ArrayList<Integer> data, TestPanel panel) {
+
+        for (int i = 0; i < data.size(); i++) {
+            int minIndex = i;
+            for (int j = i; j < data.size(); j++) { // loop 1 time less each loop
+                if (data.get(j) < data.get(minIndex)) {
+                    minIndex = j;
+
+                    int minValuePosition = data.get(j);
+                    Collections.swap(data, j, minValuePosition);
+                }
+            }
+            PaintingUtility.repaintPanel(panel);
+        }
+
+        /* FALSCH
+        for (int i = 0; i < data.size(); i++) {
+            for (int j = 0; j < data.size(); j++) { // loop 1 time less each loop
+                if (data.get(j) > Collections.min(data)) {
+                    int minValue = Collections.min(data);
+                    int minValuePosition = data.indexOf(minValue);
+
+                    //int currentValue = data.get(j);
+                    //int smallerValue = data.get(minValuePosition);
+                    Collections.swap(data, j, minValuePosition);
+                }
+            }
+            PaintingUtility.repaintPanel(panel);
+        }
+        */
+        return data;
+    }
+
 }
