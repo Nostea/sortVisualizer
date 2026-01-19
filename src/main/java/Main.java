@@ -12,11 +12,12 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Sorting algorithms visualizer");
         frame.getContentPane().setLayout(new BorderLayout());
-        frame.setBounds(100, 100, 800, 400);
+        frame.setBounds(100, 100, 1400, 600);
 
-        TestPanel panel = new TestPanel();
+        TestPanel panel = new TestPanel(1300);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
+        panel.startSorting();
 
 
     }

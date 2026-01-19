@@ -1,28 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TestPanel extends JPanel {
-    private int[] data;
-    private static final int BAR_WIDTH = 2;
+    private ArrayList<Integer> numberList = new ArrayList<>();
+    private static final int BAR_WIDTH = 1;
     private static final int PADDING = 10;
 
-    public TestPanel() {
-        this.data = new int[]{5, 12, 8, 15, 3, 20, 7, 18, 10, 14};
+    public TestPanel(int upperLimit) {
+        this.numberList = NumberGenerator.generateNumberList(upperLimit);
     }
 
     //panel neuzeichnen bei neuen Daten
-    public void setData(int[] data) {
-        this.data = data;
+    public void repaintData(ArrayList<Integer>numberList) {
+        this.numberList = numberList;
         repaint();
     }
+    public void startSorting() {
+        new Thread(() -> {
+            SortingAlgorithms.bubbleSort(numberList, this);
+        }).start();
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (data == null || data.length == 0) {
+        if (numberList == null || numberList.isEmpty()) {
             return;
         }
 
@@ -31,7 +36,7 @@ public class TestPanel extends JPanel {
 
         // maximalhöhe für Skalierung
         int maxHeightValue = 0;
-        for (int value : data) {
+        for (int value : numberList) {
             if (value > maxHeightValue) {
                 maxHeightValue = value;
             }
@@ -40,16 +45,15 @@ public class TestPanel extends JPanel {
         int panelHeight = getHeight();
         int startX = PADDING;
 
-        for (int i = 0; i < data.length; i++) {
-            int barHeight = (int) ((double) data[i] / maxHeightValue * panelHeight);
+        for (int i = 0; i < numberList.size(); i++) {
+            int barHeight = (int) ((double) numberList.get(i) / maxHeightValue * panelHeight);
             int x = startX + i * BAR_WIDTH;
-            int y = getHeight() - PADDING - barHeight;
+            int y = getHeight() - barHeight;
 
             g2d.setColor(Color.WHITE);
             g2d.fillRect(x, y, BAR_WIDTH, barHeight);
 
         }
-
 
     }
 
