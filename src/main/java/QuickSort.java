@@ -4,7 +4,7 @@ public class QuickSort {
     public QuickSort() {
     }
 
-    static int partition(ArrayList<Integer> data, int low, int high, TestPanel panel) {
+    static int partition(ArrayList<Integer> data, int low, int high, GraphPanel panel) {
         int pivot = data.get(high);
 
         int i = (low - 1);
@@ -38,7 +38,7 @@ public class QuickSort {
         return (i + 1); // return the position from where partition is done
     }
 
-    public void quickSort(ArrayList<Integer> data, int low, int high, TestPanel panel) {
+    public void quickSort(ArrayList<Integer> data, int low, int high, GraphPanel panel) {
         if (low < high) {
 
             // find pivot element such that
@@ -53,5 +53,6 @@ public class QuickSort {
             quickSort(data, pi + 1, high, panel);
         }
     }
+
 }
 

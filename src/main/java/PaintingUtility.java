@@ -2,7 +2,7 @@ public class PaintingUtility {
     public PaintingUtility(){
     }
 
-    public static void repaintPanel(TestPanel panel) {
+    public static void repaintPanel(GraphPanel panel) {
         panel.repaint();
 
         try {
