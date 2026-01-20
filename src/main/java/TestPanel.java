@@ -14,8 +14,12 @@ public class TestPanel extends JPanel {
     public void startSorting() {
         new Thread(() -> {
             //SortingAlgorithms.selectionSort(numberList, this);
-            InsertionSort sorter = new InsertionSort();
-            sorter.insertionSort(numberList, this);
+
+            //InsertionSort sorter = new InsertionSort();
+            //sorter.insertionSort(numberList, this);
+
+            QuickSort qs = new QuickSort();
+            qs.quickSort(numberList, 0, numberList.size() - 1, this);
         }).start();
     }
 
