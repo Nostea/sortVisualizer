@@ -1,0 +1,78 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class GraphPanel extends JPanel {
+    private static final int BAR_WIDTH = 1;
+    private static final int PADDING = 10;
+    private ArrayList<Integer> numberList = new ArrayList<>();
+    private ArrayList<Integer> originalList = new ArrayList<>();
+
+    public GraphPanel(int upperLimit) {
+        this.originalList = NumberGenerator.generateNumberList(upperLimit);
+        this.numberList = new ArrayList<>(originalList);  //copy
+    }
+
+    public void startSorting(String algorithm) {
+
+        // reset data to unsorted list before sorting
+        numberList = new ArrayList<>(originalList);
+        repaint();
+
+        new Thread(() -> {
+            switch (algorithm) {
+                case "Bubblesort":
+                    SortingAlgorithms.bubbleSort(numberList, this);
+                    break;
+                case "Quicksort":
+                    QuickSort quickSorter = new QuickSort();
+                    quickSorter.quickSort(numberList, 0, numberList.size() - 1, this);
+                    break;
+                case "Insertionsort":
+                    InsertionSort insertionSorter = new InsertionSort();
+                    insertionSorter.insertionSort(numberList, this);
+                    break;
+                case "Selectionsort":
+                    SortingAlgorithms.selectionSort(numberList, this);
+                    break;
+            }
+        }).start();
+    }
+
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (numberList == null || numberList.isEmpty()) {
+            return;
+        }
+
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // maximalhöhe für Skalierung
+        int maxHeightValue = 0;
+        for (int value : numberList) {
+            if (value > maxHeightValue) {
+                maxHeightValue = value;
+            }
+        }
+
+        int panelHeight = getHeight();
+        int startX = PADDING;
+
+        for (int i = 0; i < numberList.size(); i++) {
+            int barHeight = (int) ((double) numberList.get(i) / maxHeightValue * panelHeight);
+            int x = startX + i * BAR_WIDTH;
+            int y = getHeight() - barHeight;
+
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(x, y, BAR_WIDTH, barHeight);
+
+        }
+
+    }
+
+}

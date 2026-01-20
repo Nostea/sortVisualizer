@@ -6,7 +6,7 @@ public class SortingAlgorithms {
     public SortingAlgorithms() {
     }
 
-    public static ArrayList<Integer> bubbleSort(ArrayList<Integer> data, TestPanel panel) {
+    public static ArrayList<Integer> bubbleSort(ArrayList<Integer> data, GraphPanel panel) {
 
         for (int i = 0; i < data.size() - 1; i++) {
             for (int j = 0; j < data.size() - i - 1; j++) {
@@ -27,7 +27,7 @@ public class SortingAlgorithms {
         return data;
     }
 
-    public static ArrayList<Integer> selectionSort(ArrayList<Integer> data, TestPanel panel) {
+    public static ArrayList<Integer> selectionSort(ArrayList<Integer> data, GraphPanel panel) {
 
         for (int i = 0; i < data.size(); i++) {
             int minIndex = i;
