@@ -11,14 +11,11 @@ public class TestPanel extends JPanel {
         this.numberList = NumberGenerator.generateNumberList(upperLimit);
     }
 
-    //panel neuzeichnen bei neuen Daten
-    public void repaintData(ArrayList<Integer>numberList) {
-        this.numberList = numberList;
-        repaint();
-    }
     public void startSorting() {
         new Thread(() -> {
-            SortingAlgorithms.selectionSort(numberList, this);
+            //SortingAlgorithms.selectionSort(numberList, this);
+            InsertionSort sorter = new InsertionSort();
+            sorter.insertionSort(numberList, this);
         }).start();
     }
 

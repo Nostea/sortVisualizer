@@ -19,6 +19,8 @@ public class Main {
         frame.setVisible(true);
         panel.startSorting();
 
+        //Rekursion example = new Rekursion();
+        //example.sayHello();
 
     }
 }
