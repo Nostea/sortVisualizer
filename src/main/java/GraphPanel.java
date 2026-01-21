@@ -23,7 +23,8 @@ public class GraphPanel extends JPanel {
         new Thread(() -> {
             switch (algorithm) {
                 case "Bubblesort":
-                    SortingAlgorithms.bubbleSort(numberList, this);
+                    BubbleSort bubbleSorter = new BubbleSort();
+                    bubbleSorter.bubbleSort(numberList,this);
                     break;
                 case "Quicksort":
                     QuickSort quickSorter = new QuickSort();
@@ -34,7 +35,8 @@ public class GraphPanel extends JPanel {
                     insertionSorter.insertionSort(numberList, this);
                     break;
                 case "Selectionsort":
-                    SortingAlgorithms.selectionSort(numberList, this);
+                    SelectionSort selectionSorter = new SelectionSort();
+                    selectionSorter.selectionSort(numberList, this);
                     break;
             }
         }).start();

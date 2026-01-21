@@ -14,7 +14,7 @@ public class Main {
         frame.getContentPane().setLayout(new BorderLayout());
         frame.setBounds(100, 100, 1400, 600);
 
-        GraphPanel panel = new GraphPanel(1300);
+        GraphPanel panel = new GraphPanel(1250);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         //panel.startSorting();
 
