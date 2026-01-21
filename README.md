@@ -6,5 +6,6 @@ This small Java Swing application presents the way different sorting algorithms 
 
 ## Currently implemented sorting algorithms:
 - [x] Bubblesort
-- [ ] Selection sort
-- [ ] Insertion sort
+- [x] Selection sort
+- [x] Insertion sort
+- [x] Quicksort 
