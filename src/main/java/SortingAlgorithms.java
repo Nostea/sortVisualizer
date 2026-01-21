@@ -9,8 +9,9 @@ public class SortingAlgorithms {
     public static ArrayList<Integer> bubbleSort(ArrayList<Integer> data, GraphPanel panel) {
 
         for (int i = 0; i < data.size() - 1; i++) {
-            for (int j = 0; j < data.size() - i - 1; j++) {
+            boolean isSwapped = false;
 
+            for (int j = 0; j < data.size() - i - 1; j++) {
                 if (data.get(j) > data.get(j + 1)) {
 
                     int valueA = data.get(j);
@@ -18,11 +19,15 @@ public class SortingAlgorithms {
 
                     data.set(j, valueB);
                     data.set(j + 1, valueA);
+                    isSwapped = true;
                 }
-
             }
-            PaintingUtility.repaintPanel(panel);
 
+            if (!isSwapped) {
+                break;
+            }
+
+            PaintingUtility.repaintPanel(panel);
         }
         return data;
     }
