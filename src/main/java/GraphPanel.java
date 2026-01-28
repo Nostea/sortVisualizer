@@ -8,10 +8,12 @@ public class GraphPanel extends JPanel {
     private static final int PADDING = 10;
     private ArrayList<Integer> numberList = new ArrayList<>();
     private ArrayList<Integer> originalList = new ArrayList<>();
+    private StatisticsPanel statisticsPanel;
 
-    public GraphPanel(int upperLimit) {
+    public GraphPanel(int upperLimit, StatisticsPanel statisticsPanel) {
         this.originalList = NumberGenerator.generateNumberList(upperLimit);
         this.numberList = new ArrayList<>(originalList);  //copy
+        this.statisticsPanel = statisticsPanel;
     }
 
     public void startSorting(String algorithm) {
@@ -20,7 +22,12 @@ public class GraphPanel extends JPanel {
         numberList = new ArrayList<>(originalList);
         repaint();
 
+
+
         new Thread(() -> {
+
+            long startStatisticStopwatch = System.currentTimeMillis();
+
             switch (algorithm) {
                 case "Bubblesort":
                     BubbleSort bubbleSorter = new BubbleSort();
@@ -39,9 +46,22 @@ public class GraphPanel extends JPanel {
                     selectionSorter.selectionSort(numberList, this);
                     break;
             }
+
+            long stopStatisticStopWatch = System.currentTimeMillis();
+            long timeElapsed = stopStatisticStopWatch - startStatisticStopwatch;
+
+            updateStatistics(algorithm, timeElapsed);
+
+            repaint();
+
         }).start();
     }
-
+private void updateStatistics(String algorithm, long timeMs) {
+        if(statisticsPanel != null) {
+            statisticsPanel.displayTime(algorithm, timeMs);
+            statisticsPanel.displayListLength(NumberGenerator.DATA_ARRAY_LENGTH);
+        }
+}
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -54,7 +74,7 @@ public class GraphPanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // maximalhöhe für Skalierung
+        // max height for scaling
         int maxHeightValue = 0;
         for (int value : numberList) {
             if (value > maxHeightValue) {

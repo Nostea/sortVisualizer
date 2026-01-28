@@ -14,17 +14,15 @@ public class Main {
         frame.getContentPane().setLayout(new BorderLayout());
         frame.setBounds(100, 100, 1400, 600);
 
-        GraphPanel panel = new GraphPanel(1250);
+        StatisticsPanel statisticsPanel = new StatisticsPanel();
+        frame.getContentPane().add(statisticsPanel, BorderLayout.NORTH);
+
+        GraphPanel panel = new GraphPanel(NumberGenerator.DATA_ARRAY_LENGTH, statisticsPanel);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
-        //panel.startSorting();
 
         UIPanel uiPanel = new UIPanel(panel);
         frame.getContentPane().add(uiPanel, BorderLayout.LINE_END);
 
         frame.setVisible(true);
-
-        //Rekursion example = new Rekursion();
-        //example.sayHello();
-
     }
 }
