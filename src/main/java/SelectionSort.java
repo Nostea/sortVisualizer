@@ -7,14 +7,14 @@ public class SelectionSort {
     public ArrayList<Integer> selectionSort(ArrayList<Integer> data, GraphPanel panel){
         for (int i = 0; i < data.size(); i++) {
             int minIndex = i;
-            for (int j = i; j < data.size(); j++) { // loop 1 time less each loop
+            //find smallest element in unsorted Part of array
+            for (int j = i + 1; j < data.size(); j++) { // loop 1 time less each loop
                 if (data.get(j) < data.get(minIndex)) {
                     minIndex = j;
-
-                    int minValuePosition = data.get(j);
-                    Collections.swap(data, j, minValuePosition);
                 }
             }
+            //swap after minimum is found in inner loop
+            Collections.swap(data, i, minIndex);
             PaintingUtility.repaintPanel(panel);
         }
         return data;
