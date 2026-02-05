@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class GraphPanel extends JPanel {
     private static final int BAR_WIDTH = 1;
@@ -21,8 +20,6 @@ public class GraphPanel extends JPanel {
         // reset data to unsorted list before sorting
         numberList = new ArrayList<>(originalList);
         repaint();
-
-
 
         new Thread(() -> {
 
@@ -44,6 +41,9 @@ public class GraphPanel extends JPanel {
                 case "Selectionsort":
                     SelectionSort selectionSorter = new SelectionSort();
                     selectionSorter.selectionSort(numberList, this);
+                    break;
+                default:
+                    System.out.println("No algorithm selected yet");
                     break;
             }
 
@@ -94,7 +94,5 @@ private void updateStatistics(String algorithm, long timeMs) {
             g2d.fillRect(x, y, BAR_WIDTH, barHeight);
 
         }
-
     }
-
 }

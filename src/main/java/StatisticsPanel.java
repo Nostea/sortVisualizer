@@ -8,8 +8,7 @@ public class StatisticsPanel extends JPanel {
     private JLabel dataArrayLengthNumberLabel;
 
     public StatisticsPanel(){
-        setLayout(new GridLayout(3, 1, 5, 5));
-        //setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        setLayout(new GridLayout(2, 2, 5, 5));
 
         dataArrayLengthLabel = new JLabel("List Length: ");
         algorithmLabel = new JLabel("Algorithm: ");
