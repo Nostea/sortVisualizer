@@ -3,7 +3,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GraphPanel extends JPanel {
-    private static final int BAR_WIDTH = 1;
     private static final int PADDING = 10;
     private ArrayList<Integer> numberList = new ArrayList<>();
     private ArrayList<Integer> originalList = new ArrayList<>();
@@ -64,6 +63,7 @@ public class GraphPanel extends JPanel {
 
         }).start();
     }
+
 private void updateStatistics(String algorithm, long timeMs) {
         if(statisticsPanel != null) {
             statisticsPanel.displayTime(algorithm, timeMs);
@@ -91,20 +91,22 @@ private void updateStatistics(String algorithm, long timeMs) {
         }
 
         int panelHeight = getHeight();
-        int startX = PADDING;
+        int barWidth = getWidth() / numberList.size();
 
+        int startX = PADDING;
         for (int i = 0; i < numberList.size(); i++) {
             int barHeight = (int) ((double) numberList.get(i) / maxHeightValue * panelHeight);
-            int x = startX + i * BAR_WIDTH;
+            int x = startX + i * barWidth;
             int y = getHeight() - barHeight;
             int sortPosition = getCurrentSortPosition();
 
             g2d.setColor(Color.WHITE);
-            g2d.fillRect(x, y, BAR_WIDTH, barHeight);
+            g2d.fillRect(x, y, barWidth, barHeight);
 
-            g2d.setColor(Color.RED);
-            g2d.fillRect(sortPosition, y, BAR_WIDTH, barHeight);
-
+            if (i == sortPosition) {
+                g2d.setColor(Color.RED);
+                g2d.fillRect(x, y, barWidth, barHeight);
+            }
         }
     }
 }

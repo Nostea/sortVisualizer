@@ -1,10 +1,24 @@
 import java.util.ArrayList;
 
-public class QuickSort {
-    public QuickSort() {
+public class QuickSort extends AbstractSortAlgorithm {
+
+    public void quickSort(ArrayList<Integer> data, int low, int high, GraphPanel panel) {
+        if (low < high) {
+
+            // find pivot element such that
+            // elements smaller than pivot are on the left
+            // elements greater than pivot are on the right
+            int pi = partition(data, low, high, panel);
+
+            // recursive call on the left of pivot
+            quickSort(data, low, pi - 1, panel);
+
+            // recursive call on the right of pivot
+            quickSort(data, pi + 1, high, panel);
+        }
     }
 
-    static int partition(ArrayList<Integer> data, int low, int high, GraphPanel panel) {
+    private int partition(ArrayList<Integer> data, int low, int high, GraphPanel panel) {
         int pivot = data.get(high);
 
         int i = (low - 1);
@@ -37,22 +51,5 @@ public class QuickSort {
 
         return (i + 1); // return the position from where partition is done
     }
-
-    public void quickSort(ArrayList<Integer> data, int low, int high, GraphPanel panel) {
-        if (low < high) {
-
-            // find pivot element such that
-            // elements smaller than pivot are on the left
-            // elements greater than pivot are on the right
-            int pi = partition(data, low, high, panel);
-
-            // recursive call on the left of pivot
-            quickSort(data, low, pi - 1, panel);
-
-            // recursive call on the right of pivot
-            quickSort(data, pi + 1, high, panel);
-        }
-    }
-
 }
 

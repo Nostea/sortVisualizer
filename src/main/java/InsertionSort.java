@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 
 public class InsertionSort {
-    public InsertionSort() {
-    }
 
-    public ArrayList<Integer> insertionSort(ArrayList<Integer> data, GraphPanel panel) {
+    public void insertionSort(ArrayList<Integer> data, GraphPanel panel) {
         //unsorted list: 7,12,9,11,3
         for (int i = 1; i < data.size(); i++) { // i = 0 already sorted
             int key = data.get(i);
@@ -14,11 +12,11 @@ public class InsertionSort {
             while (j >= 0 && data.get(j) > key ) {  // order in which conditions are written important!
                 data.set(j + 1, data.get(j)); //shift, not swap
                 j = j - 1;
+                panel.setCurrentSortPosition(j);
+                PaintingUtility.repaintPanel(panel);
             }
             data.set(j + 1, key);
-            PaintingUtility.repaintPanel(panel);
         }
 
-        return data;
     }
 }
