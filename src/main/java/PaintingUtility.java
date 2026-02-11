@@ -11,4 +11,8 @@ public class PaintingUtility {
             e.printStackTrace();
         }
     }
+
+    public static int getIndexPosition(int position) {
+        return position;
+    }
 }

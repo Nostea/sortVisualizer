@@ -14,7 +14,11 @@ public class BubbleSort {
                     int valueB = data.get(j + 1);
 
                     data.set(j, valueB);
+                    panel.setCurrentSortPosition(j);
+                    panel.repaint();
                     data.set(j + 1, valueA);
+                    panel.setCurrentSortPosition(j + 1);
+                    panel.repaint();
                     isSwapped = true;
                 }
             }

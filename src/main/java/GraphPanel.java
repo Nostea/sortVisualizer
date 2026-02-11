@@ -15,6 +15,14 @@ public class GraphPanel extends JPanel {
         this.statisticsPanel = statisticsPanel;
     }
 
+    private int currentSortPosition = -1;
+    public void setCurrentSortPosition(int position) {
+        this.currentSortPosition = position;
+    }
+    public int getCurrentSortPosition() {
+        return currentSortPosition;
+    }
+
     public void startSorting(String algorithm) {
 
         // reset data to unsorted list before sorting
@@ -89,9 +97,13 @@ private void updateStatistics(String algorithm, long timeMs) {
             int barHeight = (int) ((double) numberList.get(i) / maxHeightValue * panelHeight);
             int x = startX + i * BAR_WIDTH;
             int y = getHeight() - barHeight;
+            int sortPosition = getCurrentSortPosition();
 
             g2d.setColor(Color.WHITE);
             g2d.fillRect(x, y, BAR_WIDTH, barHeight);
+
+            g2d.setColor(Color.RED);
+            g2d.fillRect(sortPosition, y, BAR_WIDTH, barHeight);
 
         }
     }
