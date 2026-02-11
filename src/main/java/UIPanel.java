@@ -14,13 +14,12 @@ public class UIPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.graphPanel = graphPanel;
-        algorithmOptions = new String[]{"Quicksort", "Insertionsort", "Bubblesort", "Selectionsort"};
+        algorithmOptions = new String[]{"Quicksort", "Insertionsort", "Bubblesort", "Selectionsort", "SkasBubbleSort"};
         Arrays.sort(algorithmOptions);
 
         comboBox = new JComboBox<>(algorithmOptions);
         comboBox.setSelectedIndex(0);
         selectedAlgorithm = (String)comboBox.getSelectedItem(); //preselect first algorithm, otherwise error if user doesn't pick an algorithm before starting the sort
-
 
         // ComboBox memorizes selected algorithm for actual execution by button later
         comboBox.addActionListener(new ActionListener() {

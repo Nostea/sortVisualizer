@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class NumberGenerator {
-    public static final int DATA_ARRAY_LENGTH = 1250;
+    public static final int DATA_ARRAY_LENGTH = 100;
 
     public NumberGenerator(){
     }

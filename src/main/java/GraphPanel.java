@@ -9,6 +9,8 @@ public class GraphPanel extends JPanel {
     private ArrayList<Integer> originalList = new ArrayList<>();
     private StatisticsPanel statisticsPanel;
 
+    private int currentSortingItemIndex = 0; // 1. Das Panel erhaelt eine Variable, die den Index des Items halten soll, welches gerade bei der Sortierung betrachtet wird
+
     public GraphPanel(int upperLimit, StatisticsPanel statisticsPanel) {
         this.originalList = NumberGenerator.generateNumberList(upperLimit);
         this.numberList = new ArrayList<>(originalList);  //copy
@@ -26,6 +28,10 @@ public class GraphPanel extends JPanel {
             long startStatisticStopwatch = System.currentTimeMillis();
 
             switch (algorithm) {
+                case "SkasBubbleSort":
+                    SkasNaiveBubbleSort naiveBubbleSorter = new SkasNaiveBubbleSort();
+                    naiveBubbleSorter.naivelyBubbleSort(numberList,this);
+                    break;
                 case "Bubblesort":
                     BubbleSort bubbleSorter = new BubbleSort();
                     bubbleSorter.bubbleSort(numberList,this);
@@ -85,14 +91,28 @@ private void updateStatistics(String algorithm, long timeMs) {
         int panelHeight = getHeight();
         int startX = PADDING;
 
+
+        // Lets use a width that makes the bars thicker if we have less elements than panel width
+        int betterBarWidth = getWidth() / numberList.size();
+
         for (int i = 0; i < numberList.size(); i++) {
             int barHeight = (int) ((double) numberList.get(i) / maxHeightValue * panelHeight);
-            int x = startX + i * BAR_WIDTH;
+            int x = startX + i * betterBarWidth;
             int y = getHeight() - barHeight;
 
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect(x, y, BAR_WIDTH, barHeight);
+
+            // 2. Der current Index, den wir bei jedem Schleifendurchlauf am GraphPanel setzen (vor jedem Repaint) wird rot gemalt
+            if (i == currentSortingItemIndex) {
+                g2d.setColor(Color.RED);
+            } else {
+                g2d.setColor(Color.WHITE);
+            }
+            g2d.fillRect(x, y, betterBarWidth, barHeight);
 
         }
+    }
+
+    public void setCurrentSortingItemIndex(int currentSortingItemIndex) {
+        this.currentSortingItemIndex = currentSortingItemIndex;
     }
 }
