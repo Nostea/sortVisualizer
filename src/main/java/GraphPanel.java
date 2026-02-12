@@ -9,11 +9,14 @@ public class GraphPanel extends JPanel {
     private ArrayList<Integer> originalList = new ArrayList<>();
     private StatisticsPanel statisticsPanel;
 
+    private int currentSortingItemIndex = 0;
+
     public GraphPanel(int upperLimit, StatisticsPanel statisticsPanel) {
         this.originalList = NumberGenerator.generateNumberList(upperLimit);
         this.numberList = new ArrayList<>(originalList);  //copy
         this.statisticsPanel = statisticsPanel;
     }
+
 
     public void startSorting(String algorithm) {
 
@@ -56,12 +59,12 @@ public class GraphPanel extends JPanel {
 
         }).start();
     }
-private void updateStatistics(String algorithm, long timeMs) {
+    private void updateStatistics(String algorithm, long timeMs) {
         if(statisticsPanel != null) {
             statisticsPanel.displayTime(algorithm, timeMs);
             statisticsPanel.displayListLength(NumberGenerator.DATA_ARRAY_LENGTH);
         }
-}
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -85,14 +88,25 @@ private void updateStatistics(String algorithm, long timeMs) {
         int panelHeight = getHeight();
         int startX = PADDING;
 
+        int betterBarWidth = getWidth() / numberList.size();    // bars thicker if less elements than panel width
+
         for (int i = 0; i < numberList.size(); i++) {
             int barHeight = (int) ((double) numberList.get(i) / maxHeightValue * panelHeight);
-            int x = startX + i * BAR_WIDTH;
+            int x = startX + i * betterBarWidth;
             int y = getHeight() - barHeight;
 
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect(x, y, BAR_WIDTH, barHeight);
+            if (i == currentSortingItemIndex) {
+                g2d.setColor(Color.RED);
+            } else {
+                g2d.setColor(Color.WHITE);
+            }
+            g2d.fillRect(x, y, betterBarWidth, barHeight);
 
         }
     }
+
+    public void setCurrentSortPosition(int currentSortingItemIndex) {
+        this.currentSortingItemIndex = currentSortingItemIndex;
+    }
+
 }

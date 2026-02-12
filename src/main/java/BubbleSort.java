@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-public class BubbleSort {
-    public BubbleSort(){}
+public class BubbleSort extends AbstractSortAlgorithm {
 
     public ArrayList<Integer> bubbleSort(ArrayList<Integer> data, GraphPanel panel) {
         for (int i = 0; i < data.size() - 1; i++) {
@@ -14,6 +13,8 @@ public class BubbleSort {
                     int valueB = data.get(j + 1);
 
                     data.set(j, valueB);
+                    panel.setCurrentSortPosition(j);
+                    PaintingUtility.repaintPanel(panel);
                     data.set(j + 1, valueA);
                     isSwapped = true;
                 }
@@ -23,7 +24,6 @@ public class BubbleSort {
                 break;
             }
 
-            PaintingUtility.repaintPanel(panel);
         }
         return data;
     }

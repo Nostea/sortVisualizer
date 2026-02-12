@@ -2,9 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SelectionSort {
-    public SelectionSort(){}
 
-    public ArrayList<Integer> selectionSort(ArrayList<Integer> data, GraphPanel panel){
+    public void selectionSort(ArrayList<Integer> data, GraphPanel panel){
         for (int i = 0; i < data.size(); i++) {
             int minIndex = i;
             //find smallest element in unsorted Part of array
@@ -17,6 +16,5 @@ public class SelectionSort {
             Collections.swap(data, i, minIndex);
             PaintingUtility.repaintPanel(panel);
         }
-        return data;
     }
 }
