@@ -36,9 +36,4 @@ public class UIPanel extends JPanel {
     public void startSorting() {
         graphPanel.startSorting(selectedAlgorithm);
     }
-
-    // makes this currently used GraphPanel available for use outside
-    public GraphPanel getGraphPanel() {
-        return graphPanel;
-    }
 }

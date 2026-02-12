@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class InsertionSort {
+public class InsertionSort extends AbstractSortAlgorithm {
 
     public void insertionSort(ArrayList<Integer> data, GraphPanel panel) {
         //unsorted list: 7,12,9,11,3

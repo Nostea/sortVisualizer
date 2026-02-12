@@ -3,10 +3,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GraphPanel extends JPanel {
+    private static final int BAR_WIDTH = 1;
     private static final int PADDING = 10;
     private ArrayList<Integer> numberList = new ArrayList<>();
     private ArrayList<Integer> originalList = new ArrayList<>();
     private StatisticsPanel statisticsPanel;
+
+    private int currentSortingItemIndex = 0;
 
     public GraphPanel(int upperLimit, StatisticsPanel statisticsPanel) {
         this.originalList = NumberGenerator.generateNumberList(upperLimit);
@@ -14,13 +17,6 @@ public class GraphPanel extends JPanel {
         this.statisticsPanel = statisticsPanel;
     }
 
-    private int currentSortPosition = -1;
-    public void setCurrentSortPosition(int position) {
-        this.currentSortPosition = position;
-    }
-    public int getCurrentSortPosition() {
-        return currentSortPosition;
-    }
 
     public void startSorting(String algorithm) {
 
@@ -63,13 +59,12 @@ public class GraphPanel extends JPanel {
 
         }).start();
     }
-
-private void updateStatistics(String algorithm, long timeMs) {
+    private void updateStatistics(String algorithm, long timeMs) {
         if(statisticsPanel != null) {
             statisticsPanel.displayTime(algorithm, timeMs);
             statisticsPanel.displayListLength(NumberGenerator.DATA_ARRAY_LENGTH);
         }
-}
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -91,22 +86,27 @@ private void updateStatistics(String algorithm, long timeMs) {
         }
 
         int panelHeight = getHeight();
-        int barWidth = getWidth() / numberList.size();
-
         int startX = PADDING;
+
+        int betterBarWidth = getWidth() / numberList.size();    // bars thicker if less elements than panel width
+
         for (int i = 0; i < numberList.size(); i++) {
             int barHeight = (int) ((double) numberList.get(i) / maxHeightValue * panelHeight);
-            int x = startX + i * barWidth;
+            int x = startX + i * betterBarWidth;
             int y = getHeight() - barHeight;
-            int sortPosition = getCurrentSortPosition();
 
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect(x, y, barWidth, barHeight);
-
-            if (i == sortPosition) {
+            if (i == currentSortingItemIndex) {
                 g2d.setColor(Color.RED);
-                g2d.fillRect(x, y, barWidth, barHeight);
+            } else {
+                g2d.setColor(Color.WHITE);
             }
+            g2d.fillRect(x, y, betterBarWidth, barHeight);
+
         }
     }
+
+    public void setCurrentSortPosition(int currentSortingItemIndex) {
+        this.currentSortingItemIndex = currentSortingItemIndex;
+    }
+
 }

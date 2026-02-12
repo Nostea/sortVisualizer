@@ -1,1 +1,1 @@
-public class AbstractSortAlgorithm { }
+public abstract class AbstractSortAlgorithm { }
